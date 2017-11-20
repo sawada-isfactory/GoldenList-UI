@@ -23,6 +23,7 @@ class MasterProjectsController extends AppController
             $this->RequestHandler->renderAs($this, 'json');
             $this->response->type('application/json');
         }
+        $this->loadModel('GoldenList.ExportFileReportDatas');
         /// $this->loadComponent('Csrf');
     }
 
@@ -108,7 +109,23 @@ class MasterProjectsController extends AppController
         // グラフMAX数
         $MasterMainItems = TableRegistry::get('GoldenList.MasterMainItems');
         $graphCount = $MasterMainItems->find()->where(['attribute' => 'bodais_value'])->count();
-        $this->set(compact('masterProject','graphCount'));
+
+        // エンジンステータス
+        try {
+            $api = new BodaisEngineApi();
+            $apiResult = $api->checkEngineStatuses($id);
+            $engineStatuses = [];
+            foreach ($apiResult as $data) {
+                if (!$this->ExportFileReportDatas->find()->where(['master_call_list_id' => $data['master_call_list_id']])->count()) {
+                    continue;
+                }
+                $engineStatuses[$data['master_call_list_id']] = ['status' => $data['status']];
+            }
+        } catch (\Exception $e) {
+            $this->set('engineStatusError', true);
+        }
+
+        $this->set(compact('masterProject','graphCount','engineStatuses'));
         $this->set('_serialize', ['masterProject']);
     }
 

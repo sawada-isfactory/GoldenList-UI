@@ -28,7 +28,6 @@ class MasterCallListsController extends AppController
             $this->RequestHandler->renderAs($this, 'json');
             $this->response->type('application/json');
         }
-
     }
 
     /**
@@ -60,7 +59,8 @@ class MasterCallListsController extends AppController
                         $api = new BodaisEngineApi();
                         $req = [
                             'fileInfo' => $masterCallList->file,
-                            'callListId' => $masterCallList->id
+                            'callListId' => $masterCallList->id,
+                            'isSampling' => $this->request->data('is_sampling')
                         ];
                         $api->postInsert($req);
                         // ファイル名を保存
@@ -125,8 +125,8 @@ class MasterCallListsController extends AppController
                 $this->Flash->error(__('The master project could not be saved. Please, try again.'));
             }
         }
-
         $this->set(compact('masterCallList'));
+
         $this->set('_serialize', ['masterCallList']);
     }
 
@@ -150,7 +150,8 @@ class MasterCallListsController extends AppController
         $api = new BodaisEngineApi();
         $req = [
             'fileInfo' => $masterCallList->file,
-            'callListId' => $masterCallList->id
+            'callListId' => $masterCallList->id,
+            'isSampling' => $this->request->data('is_sampling')
         ];
         $response = $api->postInsert($req);
         $this->log($masterCallList->file['name']);
@@ -274,6 +275,71 @@ class MasterCallListsController extends AppController
         //return $this->redirect(['action' => 'index']);
     }
 
+    public function copy($masterProjectId = null)
+    {
+        $this->request->allowMethod(['post']);
+
+        $this->log($this->request->data());
+        $id = $this->request->data('id');
+        $masterProject = $this->MasterCallLists->MasterProjects->get($masterProjectId, ['contain' => 'GoldenlistSidebarProjects']);
+        $orgMasterCallList = $this->MasterCallLists->findProjectBy($masterProjectId, $id);
+
+        if (empty($orgMasterCallList)) {
+            throw new NotFoundException();
+        }
+        $saveData = $orgMasterCallList->toArray();
+        unset($saveData['id'],$saveData['call_list_id'], $saveData['created'],$saveData['modified']);
+
+        $copyNumber = $this->request->data['copy_number'];
+        $saveData['call_list_name'] = $orgMasterCallList->call_list_name . '_' . $copyNumber;
+        $saveData['goldenlist_sidebar_call_list']['call_list_name'] =  $saveData['call_list_name'];
+        $saveData['goldenlist_sidebar_call_list']['goldenlist_sidebar_project_id']= $masterProject->goldenlist_sidebar_project->id;
+
+        $masterCallList = $this->MasterCallLists->newEntity();
+        $masterCallList = $this->MasterCallLists->patchEntity($masterCallList, $saveData, ['associated' => ['GoldenlistSidebarCallLists']]);
+
+        if (!$masterCallList = $this->MasterCallLists->save($masterCallList)) {
+            $this->log(
+                [
+                    'msg' => 'コールリストコピーに失敗',
+                    'request' => $this->request->params,
+                    'data' => $this->request->data,
+                ]
+            );
+            throw new InternalErrorException();
+        }
+
+        try {
+            $api = new BodaisEngineApi();
+            $api->copyCallList($orgMasterCallList->call_list_id, $this->MasterCallLists->get($masterCallList->id)->call_list_id, $copyNumber);
+        } catch (\Exception $e) {
+            $this->MasterCallLists->delete($this->MasterCallLists->get($masterCallList->id));
+            $this->log($e->getTraceAsString());
+            throw new InternalErrorException();
+        }
+
+        // ステータス保存
+        // ファイル名を保存
+        $status = [
+            'master_call_list_id' => $masterCallList->id,
+            'progress_step' => 2
+        ];
+        $statusEntity = $this->MasterCallLists->GoldenlistStatusEngines->newEntity($status);
+        if (!$this->MasterCallLists->GoldenlistStatusEngines->save($statusEntity)){
+            $this->log(
+                [
+                    'msg' => 'ステータス保存に失敗',
+                    'request' => $this->request->params,
+                    'data' => $this->request->data,
+                ]
+            );
+            throw new InternalErrorException();
+        }
+
+        $this->set('result', 'OK');
+        $this->set('_serialize', ['result']);
+    }
+
     public function download($masterProjectId = null, $id = null)
     {
         $masterCallList = $this->MasterCallLists->findProjectBy($masterProjectId, $id, ['contain' => ['GoldenlistStatusEngines']]);
@@ -310,10 +376,16 @@ class MasterCallListsController extends AppController
     public function checkStatus($masterProjectId = null, $id = null)
     {
         $api = new BodaisEngineApi();
-        $result = $api->checkEngineStatus($id);
-        if ($api->isStatusError($result)) {
-            throw new InternalErrorException();
-        } elseif ($api->isStatusRunning($result)) {
+
+        try {
+            $apiResult = $api->checkEngineStatus($id);
+        } catch (\Exception $e) {
+            throw $e;
+        }
+
+        if ($api->isStatusError($apiResult)) {
+            $result = 'error';
+        } elseif ($api->isStatusRunning($apiResult)) {
             $result = 'running';
         } else {
             $result = 'OK';

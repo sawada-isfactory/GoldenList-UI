@@ -63,6 +63,7 @@ class UtilityHelper extends Helper
             'delete' => $this->getContentUrl($controller,'delete',$pass),
             'cb' =>  $cb,
             'deleteCallList' =>  $this->getContentUrl('MasterCallLists','delete',$pass),
+            'copyCallList' => $this->getContentUrl('MasterCallLists','copy',$pass),
         ];
         foreach ($actionList as $otherAction) {
             $contentList[$otherAction] =  $this->getContentUrl($controller,$otherAction,$pass);

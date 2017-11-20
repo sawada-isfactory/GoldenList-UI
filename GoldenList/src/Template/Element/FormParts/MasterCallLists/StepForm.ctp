@@ -14,6 +14,7 @@
 
                     <div class="form-group">
                         <button id="uploadStep1" type="button" class="btn btn-primary btn-sm">アップロード</button>
+                        <button id='uploadStep1Sampling' type="button" class="btn btn-primary btn-sm">過去データの学習をする</button>
                     </div>
             <?php endif;?>
                     </span></li>
@@ -91,7 +92,8 @@
                      </div>
                     </span>
         <?php if ($this->request->action == 'add'):?>
-        <button type="submit" class="btn btn-primary btn-sm">コールプログラムを作成する</button>
+        <button id='submitAnalysis' type="submit" class="btn btn-primary btn-sm">コールプログラムを作成する</button>
+        <button id='submitSampling' type="button" class="btn btn-primary btn-sm">過去データの学習をする</button>
         <?php elseif ($this->request->action == 'edit'): ?>
         <button id="updateCaps" type="button" class="btn btn-primary btn-sm">コールプログラムを作成する</button>
         <?php endif;?>

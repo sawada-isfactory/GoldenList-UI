@@ -133,7 +133,7 @@ class MasterCallListsTable extends Table
         $validator
             ->integer('cv_target_number')
             ->requirePresence('cv_target_number', 'create')
-            ->notEmpty('cv_target_number');
+            ->allowEmpty('cv_target_number');
 
         $validator
             ->integer('cap_wd_am')
@@ -204,6 +204,14 @@ class MasterCallListsTable extends Table
     public static function defaultConnectionName()
     {
         return 'GoldenList';
+    }
+
+    public function beforeSave($event, $entity, $options)
+    {
+        if ($entity->isNew() && empty($entity->cv_target_number)) {
+            $entity->cv_target_number = 0;
+        }
+        return true;
     }
 
     public function afterSave($event, $entity, $options)

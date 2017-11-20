@@ -28,7 +28,7 @@
 <!-- /.row -->
 <div class="row">
     <div class="col-lg-6">
-            <?= $this->Form->create($masterCallList, ['role' => 'form', 'enctype' => 'multipart/form-data']) ?>
+            <?= $this->Form->create($masterCallList, ['id' => 'uploadForm', 'role' => 'form', 'enctype' => 'multipart/form-data']) ?>
             <div class="form-group">
                 <label>コールリスト名</label>
                 <input class="form-control" name=call_list_name value="<?= $masterCallList->call_list_name ?>">

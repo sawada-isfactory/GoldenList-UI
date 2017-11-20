@@ -42,7 +42,7 @@
                     <tr>
                         <th>ゴールデンリスト名</th>
                         <th>進行状況</th>
-                        <th colspan="2">設定</th>
+                        <th colspan="3">設定</th>
                     </tr>
                     </thead>
                 <?php endif;?>
@@ -61,16 +61,28 @@
                                     </ul>
                                 </td>
                                 <td class="text-center">
-                                    <a href="<?= $this->Url->build(['controller' => 'MasterCallLists', 'action' => 'edit', $masterProject->id, $item->id]); ?>"><i class="fa fa-cog fa-2x" aria-hidden="true"></i></a>
+                                    <a href="<?= $this->Url->build(['controller' => 'MasterCallLists', 'action' => 'edit', $masterProject->id, $item->id]); ?>"><i class="fa fa-cog fa-2x" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="編集"></i></a>
                                 </td>
                                 <td class="text-center">
-                                    <a href="javascript:void(0)" data-toggle="modal" data-target="#callListDeleteModal" data-whatever="<?= $item->id ?>" data-title="<?= $item->call_list_name ?>" ><i class="fa fa-trash text-danger fa-2x" aria-hidden="true"></i></a>
+                                    <?php
+                                    $tooltip = '件数を指定して複製';
+                                    if (empty($engineStatusError) && !empty($engineStatuses[$item->id]) && $engineStatuses[$item->id]['status'] == GOLDENLIST_ENGINE_COMPLETE_STATUS):?>
+                                    <a href="javascript:void(0)" data-toggle="modal" data-target="#callListCopyModal" data-whatever="<?= $item->id ?>" data-title="<?= $item->call_list_name ?>" ><i class="fa fa-files-o fa-2x" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="<?= $tooltip ?>"></i></a>
+                                    <?php else:
+                                        $tooltip = '他の処理が実行中です。完了すると複製が可能となります';
+                                        ?>
+
+                                        <a href="javascript:void(0)" disabled="disabled" style="color:#9EC8E1"><i class="fa fa-files-o fa-2x" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="<?= $tooltip ?>"></i></a>
+                                    <?php endif; ?>
+                                </td>
+                                <td class="text-center">
+                                    <a href="javascript:void(0)" data-toggle="modal" data-target="#callListDeleteModal" data-whatever="<?= $item->id ?>" data-title="<?= $item->call_list_name ?>" ><i class="fa fa-trash text-danger fa-2x" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="削除"></i></a>
                                 </td>
                             </tr>
                         <?php endforeach;?>
                     <?php endif;?>
                     <tr>
-                        <td colspan="4"><a href="<?= $this->Url->build(['controller' => 'MasterCallLists', 'action' => 'add', $masterProject->id]); ?>"><i class="fa fa-plus fa-fw"></i> コールリスト新規作成</a></td>
+                        <td colspan="5"><a href="<?= $this->Url->build(['controller' => 'MasterCallLists', 'action' => 'add', $masterProject->id]); ?>"><i class="fa fa-plus fa-fw"></i> コールリスト新規作成</a></td>
                     </tr>
                     </tbody>
 
@@ -132,6 +144,34 @@
     <!-- /.modal-dialog -->
 </div>
 <!-- Calllist Delete Modal -->
+<!-- Calllist Copy Modal -->
+<div class="modal fade" id="callListCopyModal" tabindex="-1" role="dialog" aria-labelledby="callListDeleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="callListDeleteModalLabel">コールリスト複製</h4>
+            </div>
+            <div class="modal-body">
+                <form id="copyCallListForm" method="post" action="delete">
+
+                    <p class="modal-body-p">コールリストを複製します。件数を指定してください</p>
+                    <div class="form-group input-group">
+                        <input class="form-control" name="copy_number" value="">
+                        <span class="input-group-addon">件</span>
+                    </div>
+                    <div class="form-group text-center">
+                        <input id="copyCallListId" type="hidden" name="id">
+                        <input id="copyCallList" class="btn btn-danger" type="button" value="複製">
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- Calllist Copy Modal -->
 <?php $this->start('appendScript'); ?>
 <?php if (empty($demoData)) $demoData = false?>
 <script>

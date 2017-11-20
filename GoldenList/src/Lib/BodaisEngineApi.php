@@ -15,7 +15,12 @@ class BodaisEngineApi
 {
     public function postInsert($request)
     {
-        $result = $this->requestPostWithFile('insert', $request['fileInfo']['tmp_name'], ['callListId' => $request['callListId'], 'filename' => $request['fileInfo']['name']]);
+        $result = $this->requestPostWithFile('insert',
+            $request['fileInfo']['tmp_name'], [
+                'callListId' => $request['callListId'],
+                'filename' => $request['fileInfo']['name'],
+                'isSampling' => $request['isSampling'],
+            ]);
         return ['filename' => $request['fileInfo']['name']];
     }
 
@@ -23,6 +28,21 @@ class BodaisEngineApi
     {
         $result = $this->requestPostWithFile('insertGoldenList', $request['fileInfo']['tmp_name'], ['callListId' => $request['callListId'], 'filename' => $request['fileInfo']['name']]);
         return ['filename' => $request['fileInfo']['name']];
+    }
+
+    public function copyCallList($orgCallListId, $callListId, $copyNumber)
+    {
+        $http = new Client();
+        $url = GOLDENLIST_ENGINE_API_URL . DS . 'copyCallList';
+        $response = $http->post($url, compact('orgCallListId','callListId','copyNumber'));
+        if (!$response->isOk()) {
+            if ($response->statusCode() == 404) {
+                throw new NotFoundException();
+            }
+            throw new InternalErrorException(sprintf("[%s]%s", $response->statusCode(), $response->body()));
+        }
+        return true;
+
     }
 
     public function createScore($params)
@@ -171,7 +191,11 @@ class BodaisEngineApi
             }
             throw new InternalErrorException(sprintf("[%s]%s", $response->statusCode(), $response->body()));
         }
-        return $response->body();
+
+        if ($result = @json_decode($response->body(), true)) {
+            return $result['result'];
+        }
+        return null;
     }
 
     public function checkEngineStatus($masterCallListId)
@@ -180,6 +204,7 @@ class BodaisEngineApi
         $url = GOLDENLIST_ENGINE_API_URL . DS . 'checkStatus';
         $response = $http->get($url, ['master_call_list_id' => $masterCallListId]);
         if (!$response->isOk()) {
+            Log::error(sprintf("checkStatus ServerErr %s master_call_list_id = %s code = %s", $url, $masterCallListId, $response->statusCode()));
             if ($response->statusCode() == 404) {
                 throw new NotFoundException();
             }
