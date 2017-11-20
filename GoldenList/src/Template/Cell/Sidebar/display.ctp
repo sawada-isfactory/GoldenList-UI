@@ -8,7 +8,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="<?= $this->Utility->getContentUrl('MasterProjects', 'index') ?>">COLLABOS GOLDEN LIST <span>powered by bodais</span></a>
+        <a class="navbar-brand" href="<?= $this->Utility->getContentUrl('MasterProjects', 'index') ?>">COLLABOS Goleden List <span>powered by bodais</span> <?= !empty($isDemo)? "[デモ]" : ""?></a>
     </div>
     <!-- /.navbar-header -->
 

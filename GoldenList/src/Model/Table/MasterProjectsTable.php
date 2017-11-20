@@ -57,25 +57,17 @@ class MasterProjectsTable extends Table
 
         $this->addBehavior('Timestamp');
 
-        $this->hasMany('BodaisStatusModels', [
-            'foreignKey' => 'master_project_id',
-            'className' => 'GoldenList.BodaisStatusModels'
-        ]);
-        $this->hasMany('BodaisStatusPredictions', [
-            'foreignKey' => 'master_project_id',
-            'className' => 'GoldenList.BodaisStatusPredictions'
-        ]);
         $this->hasOne('GoldenlistLoyalCustomers', [
             'foreignKey' => 'master_project_id',
-            'className' => 'GoldenList.GoldenlistLoyalCustomers'
+            'className' => 'GoldenList.GoldenlistLoyalCustomers',
+            'dependent' => true,
+            'cascadeCallbacks' => true,
         ]);
         $this->hasOne('GoldenlistProjectOverviews', [
             'foreignKey' => 'master_project_id',
-            'className' => 'GoldenList.GoldenlistProjectOverviews'
-        ]);
-        $this->hasMany('GoldenlistSidebarCallLists', [
-            'foreignKey' => 'master_project_id',
-            'className' => 'GoldenList.GoldenlistSidebarCallLists'
+            'className' => 'GoldenList.GoldenlistProjectOverviews',
+            'dependent' => true,
+            'cascadeCallbacks' => true,
         ]);
         $this->hasOne('GoldenlistSidebarProjects', [
             'foreignKey' => 'master_project_id',
@@ -93,7 +85,9 @@ class MasterProjectsTable extends Table
 
         $this->hasMany('MasterCallLists', [
             'foreignKey' => 'master_project_id',
-            'className' => 'GoldenList.MasterCallLists'
+            'className' => 'GoldenList.MasterCallLists',
+            'dependent' => true,
+            'cascadeCallbacks' => true,
         ]);
 
         $this->belongsTo('MasterClients', [

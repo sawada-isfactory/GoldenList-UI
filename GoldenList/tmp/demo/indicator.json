@@ -1,0 +1,426 @@
+{
+    "data": [
+        {
+            "classification_id": 1,
+            "classification_name": "年齢",
+            "value": 22.4695,
+            "category": {
+                "id": 7,
+                "str": "71以上81未満",
+                "unit": null
+            },
+            "inner_rank": 1,
+            "is_positive": true
+        },
+        {
+            "classification_id": 1,
+            "classification_name": "年齢",
+            "value": -16.2327,
+            "category": {
+                "id": 9999,
+                "str": "欠損",
+                "unit": null
+            },
+            "inner_rank": 2,
+            "is_positive": false
+        },
+        {
+            "classification_id": 1,
+            "classification_name": "年齢",
+            "value": -6.59539,
+            "category": {
+                "id": 6,
+                "str": "61以上71未満",
+                "unit": null
+            },
+            "inner_rank": 3,
+            "is_positive": false
+        },
+        {
+            "classification_id": 3,
+            "classification_name": "都道府県",
+            "value": -100,
+            "category": {
+                "id": 31,
+                "str": "大阪",
+                "unit": null
+            },
+            "inner_rank": 1,
+            "is_positive": false
+        },
+        {
+            "classification_id": 3,
+            "classification_name": "都道府県",
+            "value": 38.6848,
+            "category": {
+                "id": 30,
+                "str": "千葉",
+                "unit": null
+            },
+            "inner_rank": 2,
+            "is_positive": true
+        },
+        {
+            "classification_id": 3,
+            "classification_name": "都道府県",
+            "value": -31.0554,
+            "category": {
+                "id": 46,
+                "str": "北海道",
+                "unit": null
+            },
+            "inner_rank": 3,
+            "is_positive": false
+        },
+        {
+            "classification_id": 3,
+            "classification_name": "都道府県",
+            "value": 16.8485,
+            "category": {
+                "id": 26,
+                "str": "神奈川",
+                "unit": null
+            },
+            "inner_rank": 4,
+            "is_positive": true
+        },
+        {
+            "classification_id": 3,
+            "classification_name": "都道府県",
+            "value": 13.16,
+            "category": {
+                "id": 17,
+                "str": "埼玉",
+                "unit": null
+            },
+            "inner_rank": 5,
+            "is_positive": true
+        },
+        {
+            "classification_id": 3,
+            "classification_name": "都道府県",
+            "value": 12.5339,
+            "category": {
+                "id": 37,
+                "str": "東京",
+                "unit": null
+            },
+            "inner_rank": 6,
+            "is_positive": true
+        },
+        {
+            "classification_id": 3,
+            "classification_name": "都道府県",
+            "value": -10.9143,
+            "category": {
+                "id": 1,
+                "str": "愛知",
+                "unit": null
+            },
+            "inner_rank": 7,
+            "is_positive": false
+        },
+        {
+            "classification_id": 6,
+            "classification_name": "電話番号区分（携帯・固定）",
+            "value": 6.1887,
+            "category": {
+                "id": 2,
+                "str": "携帯",
+                "unit": null
+            },
+            "inner_rank": 1,
+            "is_positive": true
+        },
+        {
+            "classification_id": 6,
+            "classification_name": "電話番号区分（携帯・固定）",
+            "value": -1.37692,
+            "category": {
+                "id": 1,
+                "str": "固定",
+                "unit": null
+            },
+            "inner_rank": 2,
+            "is_positive": false
+        },
+        {
+            "classification_id": 36,
+            "classification_name": "最新購買日からの経過日数",
+            "value": -67.4446,
+            "category": {
+                "id": 4,
+                "str": "22以上31未満",
+                "unit": null
+            },
+            "inner_rank": 1,
+            "is_positive": false
+        },
+        {
+            "classification_id": 36,
+            "classification_name": "最新購買日からの経過日数",
+            "value": 30.6575,
+            "category": {
+                "id": 2,
+                "str": "8以上15未満",
+                "unit": null
+            },
+            "inner_rank": 2,
+            "is_positive": true
+        },
+        {
+            "classification_id": 36,
+            "classification_name": "最新購買日からの経過日数",
+            "value": -23.0714,
+            "category": {
+                "id": 3,
+                "str": "15以上22未満",
+                "unit": null
+            },
+            "inner_rank": 3,
+            "is_positive": false
+        },
+        {
+            "classification_id": 58,
+            "classification_name": "追加項目_2",
+            "value": -41.5643,
+            "category": {
+                "id": 2,
+                "str": "1",
+                "unit": null
+            },
+            "inner_rank": 1,
+            "is_positive": false
+        },
+        {
+            "classification_id": 58,
+            "classification_name": "追加項目_2",
+            "value": 11.4303,
+            "category": {
+                "id": 1,
+                "str": "0",
+                "unit": null
+            },
+            "inner_rank": 2,
+            "is_positive": true
+        }
+    ],
+    "impact_by": {
+        "strong": {
+            "positive": [
+                {
+                    "classification_id": 1,
+                    "classification_name": "年齢",
+                    "value": 22.4695,
+                    "category": {
+                        "id": 7,
+                        "str": "71以上81未満",
+                        "unit": null
+                    },
+                    "inner_rank": 1,
+                    "is_positive": true
+                },
+                {
+                    "classification_id": 3,
+                    "classification_name": "都道府県",
+                    "value": 38.6848,
+                    "category": {
+                        "id": 30,
+                        "str": "千葉",
+                        "unit": null
+                    },
+                    "inner_rank": 2,
+                    "is_positive": true
+                },
+                {
+                    "classification_id": 3,
+                    "classification_name": "都道府県",
+                    "value": 16.8485,
+                    "category": {
+                        "id": 26,
+                        "str": "神奈川",
+                        "unit": null
+                    },
+                    "inner_rank": 4,
+                    "is_positive": true
+                },
+                {
+                    "classification_id": 3,
+                    "classification_name": "都道府県",
+                    "value": 13.16,
+                    "category": {
+                        "id": 17,
+                        "str": "埼玉",
+                        "unit": null
+                    },
+                    "inner_rank": 5,
+                    "is_positive": true
+                },
+                {
+                    "classification_id": 3,
+                    "classification_name": "都道府県",
+                    "value": 12.5339,
+                    "category": {
+                        "id": 37,
+                        "str": "東京",
+                        "unit": null
+                    },
+                    "inner_rank": 6,
+                    "is_positive": true
+                },
+                {
+                    "classification_id": 36,
+                    "classification_name": "最新購買日からの経過日数",
+                    "value": 30.6575,
+                    "category": {
+                        "id": 2,
+                        "str": "8以上15未満",
+                        "unit": null
+                    },
+                    "inner_rank": 2,
+                    "is_positive": true
+                },
+                {
+                    "classification_id": 58,
+                    "classification_name": "追加項目_2",
+                    "value": 11.4303,
+                    "category": {
+                        "id": 1,
+                        "str": "0",
+                        "unit": null
+                    },
+                    "inner_rank": 2,
+                    "is_positive": true
+                }
+            ],
+            "negative": [
+                {
+                    "classification_id": 1,
+                    "classification_name": "年齢",
+                    "value": -16.2327,
+                    "category": {
+                        "id": 9999,
+                        "str": "欠損",
+                        "unit": null
+                    },
+                    "inner_rank": 2,
+                    "is_positive": false
+                },
+                {
+                    "classification_id": 3,
+                    "classification_name": "都道府県",
+                    "value": -100,
+                    "category": {
+                        "id": 31,
+                        "str": "大阪",
+                        "unit": null
+                    },
+                    "inner_rank": 1,
+                    "is_positive": false
+                },
+                {
+                    "classification_id": 3,
+                    "classification_name": "都道府県",
+                    "value": -31.0554,
+                    "category": {
+                        "id": 46,
+                        "str": "北海道",
+                        "unit": null
+                    },
+                    "inner_rank": 3,
+                    "is_positive": false
+                },
+                {
+                    "classification_id": 3,
+                    "classification_name": "都道府県",
+                    "value": -10.9143,
+                    "category": {
+                        "id": 1,
+                        "str": "愛知",
+                        "unit": null
+                    },
+                    "inner_rank": 7,
+                    "is_positive": false
+                },
+                {
+                    "classification_id": 36,
+                    "classification_name": "最新購買日からの経過日数",
+                    "value": -67.4446,
+                    "category": {
+                        "id": 4,
+                        "str": "22以上31未満",
+                        "unit": null
+                    },
+                    "inner_rank": 1,
+                    "is_positive": false
+                },
+                {
+                    "classification_id": 36,
+                    "classification_name": "最新購買日からの経過日数",
+                    "value": -23.0714,
+                    "category": {
+                        "id": 3,
+                        "str": "15以上22未満",
+                        "unit": null
+                    },
+                    "inner_rank": 3,
+                    "is_positive": false
+                },
+                {
+                    "classification_id": 58,
+                    "classification_name": "追加項目_2",
+                    "value": -41.5643,
+                    "category": {
+                        "id": 2,
+                        "str": "1",
+                        "unit": null
+                    },
+                    "inner_rank": 1,
+                    "is_positive": false
+                }
+            ]
+        },
+        "medium": {
+            "negative": [
+                {
+                    "classification_id": 1,
+                    "classification_name": "年齢",
+                    "value": -6.59539,
+                    "category": {
+                        "id": 6,
+                        "str": "61以上71未満",
+                        "unit": null
+                    },
+                    "inner_rank": 3,
+                    "is_positive": false
+                },
+                {
+                    "classification_id": 6,
+                    "classification_name": "電話番号区分（携帯・固定）",
+                    "value": -1.37692,
+                    "category": {
+                        "id": 1,
+                        "str": "固定",
+                        "unit": null
+                    },
+                    "inner_rank": 2,
+                    "is_positive": false
+                }
+            ],
+            "positive": [
+                {
+                    "classification_id": 6,
+                    "classification_name": "電話番号区分（携帯・固定）",
+                    "value": 6.1887,
+                    "category": {
+                        "id": 2,
+                        "str": "携帯",
+                        "unit": null
+                    },
+                    "inner_rank": 1,
+                    "is_positive": true
+                }
+            ]
+        }
+    }
+}

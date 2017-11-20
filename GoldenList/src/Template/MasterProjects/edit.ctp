@@ -133,8 +133,9 @@
 </div>
 <!-- Calllist Delete Modal -->
 <?php $this->start('appendScript'); ?>
+<?php if (empty($demoData)) $demoData = false?>
 <script>
     var reqInfo = setRequest(<?= json_encode($this->Utility->getUpdateUrls())?>, 'project_name');
-    renderAccuracyGraph(<?= $this->ReportGraph->getGraphCounts($masterProject->goldenlist_loyal_customer)?>,<?= $graphCount ?>);
+    renderAccuracyGraph(<?= $this->ReportGraph->getGraphCounts($masterProject->goldenlist_loyal_customer, $demoData)?>,<?= $graphCount ?>);
 </script>
 <?php $this->end(); ?>

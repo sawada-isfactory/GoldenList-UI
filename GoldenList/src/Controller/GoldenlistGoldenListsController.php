@@ -21,6 +21,8 @@ class GoldenlistGoldenListsController extends AppController
      */
     public function view($masterProjectId, $masterCallListId = null)
     {
+        if (!empty($this->DemoComponent->isDemo)) return;
+
         $masterCallList = $this->GoldenlistGoldenLists->masterCallLists->findProjectBy($masterProjectId, $masterCallListId, ['contain' => ['MasterProjects']]);
 
         $goldenlistGoldenList = $this->GoldenlistGoldenLists->findByMasterCallListId($masterCallListId);

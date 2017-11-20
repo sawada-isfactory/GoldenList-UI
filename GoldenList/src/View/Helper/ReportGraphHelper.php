@@ -176,8 +176,11 @@ class ReportGraphHelper extends Helper
         return $sign . $val;
     }
 
-    public function getGraphCounts($goldenListLoyalCustomersEntity)
+    public function getGraphCounts($goldenListLoyalCustomersEntity, $demoData = false)
     {
+        if ($demoData) {
+            $goldenListLoyalCustomersEntity = $demoData;
+        }
         if (empty($goldenListLoyalCustomersEntity)) {
             return 0;
         }

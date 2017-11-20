@@ -3,6 +3,7 @@ namespace GoldenList\Lib;
 
 use Cake\Log\Log;
 use Cake\Core\Configure;
+use Cake\Network\Exception\BadRequestException;
 use Cake\Network\Exception\InternalErrorException;
 use Cake\Network\Http\Client;
 use Cake\Network\Exception\NotFoundException;
@@ -101,6 +102,20 @@ class BodaisEngineApi
             throw new InternalErrorException(sprintf("[%s]%s", $response->statusCode(), $response->body()));
         }
         return true;
+    }
+
+    public function regenerateReport($params)
+    {
+        $http = new Client();
+        $url = GOLDENLIST_DOWNLOAD_API_URL . DS . 'regenerateReport';
+        $response = $http->post($url, $params);
+        if (!$response->isOk()) {
+            if ($response->statusCode() == 400) {
+                throw new BadRequestException();
+            }
+            throw new InternalErrorException(sprintf("[%s]%s", $response->statusCode(), $response->body()));
+        }
+        return $response->body();
     }
 
     public function downloadReport($params)

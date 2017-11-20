@@ -28,6 +28,8 @@ class GoldenlistLoyalCustomersController extends AppController
      */
     public function view($masterProjectId = null)
     {
+        if (!empty($this->DemoComponent->isDemo)) return;
+
         $goldenlistLoyalCustomer = $this->GoldenlistLoyalCustomers->findByMasterProjectId($masterProjectId);
         if (empty($goldenlistLoyalCustomer)) {
             $this->render('GoldenList.Error/creating');

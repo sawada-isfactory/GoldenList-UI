@@ -58,33 +58,23 @@ class MasterCallListsTable extends Table
             'joinType' => 'INNER',
             'className' => 'GoldenList.MasterProjects'
         ]);
-        $this->hasMany('AnalysisMainItems', [
-            'foreignKey' => 'master_call_list_id',
-            'className' => 'GoldenList.AnalysisMainItems'
-        ]);
-        $this->hasMany('BodaisStatusModels', [
-            'foreignKey' => 'master_call_list_id',
-            'className' => 'GoldenList.BodaisStatusModels'
-        ]);
-        $this->hasMany('BodaisStatusPredictions', [
-            'foreignKey' => 'master_call_list_id',
-            'className' => 'GoldenList.BodaisStatusPredictions'
-        ]);
-        $this->hasMany('CsvFiles', [
-            'foreignKey' => 'master_call_list_id',
-            'className' => 'GoldenList.CsvFiles'
-        ]);
         $this->hasMany('EngineStatus', [
             'foreignKey' => 'master_call_list_id',
-            'className' => 'GoldenList.EngineStatus'
+            'className' => 'GoldenList.EngineStatus',
+            'dependent' => true,
+            'cascadeCallbacks' => true,
         ]);
         $this->hasMany('GoldenlistGoldenLists', [
             'foreignKey' => 'master_call_list_id',
-            'className' => 'GoldenList.GoldenlistGoldenLists'
+            'className' => 'GoldenList.GoldenlistGoldenLists',
+            'dependent' => true,
+            'cascadeCallbacks' => true,
         ]);
         $this->hasMany('GoldenlistProjectOverviews', [
             'foreignKey' => 'master_call_list_id',
-            'className' => 'GoldenList.GoldenlistProjectOverviews'
+            'className' => 'GoldenList.GoldenlistProjectOverviews',
+            'dependent' => true,
+            'cascadeCallbacks' => true,
         ]);
         $this->hasOne('GoldenlistSidebarCallLists', [
             'foreignKey' => 'master_call_list_id',
@@ -94,7 +84,9 @@ class MasterCallListsTable extends Table
         ]);
         $this->hasOne('GoldenlistStatusEngines', [
             'foreignKey' => 'master_call_list_id',
-            'className' => 'GoldenList.GoldenlistStatusEngines'
+            'className' => 'GoldenList.GoldenlistStatusEngines',
+            'dependent' => true,
+            'cascadeCallbacks' => true,
         ]);
 
         $this->hasOne('ExportFileCallListFiles', [

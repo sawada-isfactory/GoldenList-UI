@@ -21,6 +21,8 @@ class GoldenlistProjectOverviewsController extends AppController
      */
     public function view($masterProjectId = null)
     {
+        if (!empty($this->DemoComponent->isDemo)) return;
+
         $masterProject = $this->GoldenlistProjectOverviews->MasterProjects->get($masterProjectId);
         $goldenlistProjectOverview = $this->GoldenlistProjectOverviews->findByMasterProjectId($masterProjectId);
         if (empty($goldenlistProjectOverview->count())) {

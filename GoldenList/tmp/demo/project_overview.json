@@ -1,0 +1,26 @@
+[
+    {
+        "project_overview_list_number": 10000,
+        "project_overview_call_number": 10000,
+        "project_overview_reach_rate": 0.26,
+        "project_overview_reach_number": 2598 ,
+        "project_overview_cv_rate_reached": 0.093,
+        "project_overview_cv_number": 242,
+        "project_overview_cv_rate": 0.024,
+        "master_call_list" : {
+            "call_list_name": "サンプルゴールデンリスト１"
+        }
+    },
+    {
+        "project_overview_list_number": 5000,
+        "project_overview_call_number": 5000,
+        "project_overview_reach_rate": 0.722,
+        "project_overview_reach_number": 3611,
+        "project_overview_cv_rate_reached": 0.024,
+        "project_overview_cv_number": 89,
+        "project_overview_cv_rate": 0.0178,
+        "master_call_list" : {
+            "call_list_name": "サンプルゴールデンリスト２"
+        }
+    }
+]

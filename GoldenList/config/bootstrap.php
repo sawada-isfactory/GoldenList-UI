@@ -1,11 +1,17 @@
 <?php
-define ('GOLDENLIST_ENGINE_API_URL', 'http://52.198.128.255/goldenlist/api/bodais');
-define ('GOLDENLIST_DOWNLOAD_API_URL', 'http://52.198.128.255/goldenlist/api/download');
+define ('GOLDENLIST_ENGINE_API_URL', 'http://ec2-13-113-49-81.ap-northeast-1.compute.amazonaws.com/goldenlist/api/bodais');
+define ('GOLDENLIST_DOWNLOAD_API_URL', 'http://ec2-13-113-49-81.ap-northeast-1.compute.amazonaws.com/goldenlist/api/download');
 
-define('GOLDENLIST_TIMEOUT', 86400);
 define ('GOLDENLIST_API_TIMEOUT', 3600);
 define ('GOLDENLIST_ENGINE_COMPLETE_STATUS', 9000);
 define ('GOLDENLIST_ENGINE_FILE_UPLOAD_STATUS', 100);
+define("GOLDENLIST_TIMEOUT", 86400);
+
+define('GOLDENLIST_DEMO',[
+    'group_ids' => ['1','326'],
+    'project_prefix' => 'demo',
+    'enable' => true,
+]);
 
 define ('GOLDENLIST_GRAPH_COLORS', [
     'chartColors' => [

@@ -51,8 +51,9 @@
                     <!-- /.table-responsive -->
 
                     <h3 class="text-center">COLLABOS Golden Listの予測結果</h3>
-                    <?php if(empty($dummy)): ?>
+
                     <div class="row">
+                        <?php if(empty($dummy)): ?>
                         <div class="col-lg-6">
                             <div class="graph_size" id="graph_goldenlist_expected"></div>
                         </div>

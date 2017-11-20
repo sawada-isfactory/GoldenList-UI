@@ -13,11 +13,18 @@ class AppController extends BaseController
         'GoldenList.Utility',
     ];
 
+    protected $DemoComponent;
     public function initialize()
     {
         parent::initialize();
-        $this->loadComponent('RequestHandler');
         $this->customAuthorized();
+
+        $this->loadComponent('RequestHandler');
+
+        $this->DemoComponent = $this->loadComponent('GoldenList.Demo',[
+            'auth' => $this->Auth->user()
+        ]);
+
     }
 
     public function beforeRender(Event $event)
@@ -37,21 +44,34 @@ class AppController extends BaseController
             return true;
         }
 
-
-        if (empty($this->request->pass)) {
+        if (!($id = $this->getMasterProjectIdByPass())) {
             return true;
         }
 
-        if ($this->request->pass[0] == 'home') {
-            return true;
-        }
+        $myProject = $this->getMyProjectEntity($id);
 
-        $id = $this->request->pass[0];
-        $MasterProject = TableRegistry::get('GoldenList.MasterProjects');
-        $myProject = $MasterProject->get($id, ['contain' => 'MasterClients']);
         if ($this->Auth->user('id') != $myProject->master_client->user_id) {
             throw new ForbiddenException();
         }
         return true;
+    }
+
+    public function getMyProjectEntity($id)
+    {
+        $MasterProject = TableRegistry::get('GoldenList.MasterProjects');
+        return $MasterProject->get($id, ['contain' => 'MasterClients']);
+    }
+
+    public function getMasterProjectIdByPass()
+    {
+        if (empty($this->request->pass)) {
+            return null;
+        }
+
+        if ($this->request->pass[0] == 'home') {
+            return null;
+        }
+
+        return $this->request->pass[0];
     }
 }
